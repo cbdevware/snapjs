@@ -1,0 +1,39 @@
+<!DOCTYPE html5>
+<html>
+	<head id="test">
+		<script type="text/javascript" src="./js/Utensils.js"></script>
+		<script type="text/javascript" src="./js/ajax.js"></script>
+		<script type="text/javascript" src="./js/Snap.js"></script>
+		<script type="text/javascript">
+			snap = new Snap();
+			snap.__init__();
+			//Chris-->for test purposes only
+			
+			snap.connectToDB('mysql', {'username':'root','password':'','database':'test'});
+			snap.execQuery("SELECT * FROM test");
+			
+			snap.onTasksDone = function(result)
+			{
+				if(Utensils.Object.isDefined(result))
+				{
+					if(Utensils.Object.isDefined(result['result']) && result['result'].length > 0)
+					{
+						var str = "Database Results"+"\n";
+						for(var i in result['result'])
+						{
+							str += result['result'][i]['test_id']+":"+result['result'][i]['name']+"\n";
+						}	
+						alert(str);
+					}
+					else
+					{
+						alert("No results were able to be loaded from the server.");
+					}
+				}
+			};
+			snap.doTasks();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
